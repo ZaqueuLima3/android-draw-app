@@ -22,6 +22,7 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
     private var color = Color.BLACK
     private var canvas: Canvas? = null
     private var mPaths = ArrayList<CustomPath>()
+    private var mBackupPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
@@ -103,10 +104,24 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         mDrawPaint!!.strokeWidth = mBrushSize
     }
 
-    fun setColor(newColor: String) {
-        color = newColor.toColorInt()
+    fun setColor(newColor: Int) {
+        color = newColor
 
         mDrawPaint!!.color = color
+    }
+
+    fun undo() {
+        if (mPaths.size > 0) {
+            mBackupPaths.add(mPaths.removeAt(mPaths.lastIndex))
+            invalidate()
+        }
+    }
+
+    fun remake() {
+        if (mBackupPaths.size > 0) {
+            mPaths.add(mBackupPaths.removeAt(mBackupPaths.lastIndex))
+            invalidate()
+        }
     }
 
     internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path() {
