@@ -10,7 +10,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -18,19 +19,21 @@ import androidx.core.content.ContextCompat
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.brush_size.*
 import kotlinx.android.synthetic.main.dialog_brush_size.*
 
 class MainActivity : AppCompatActivity() {
     private var currentColor: Int = Color.BLACK
+    private var mSizeBrush: Int = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        drawing_view.setSizeForBrush(10.toFloat())
+        drawing_view.setSizeForBrush(mSizeBrush.toFloat())
 
         ib_brush.setOnClickListener {
-            showBrushSizeChooserDialog()
+            showDialogBrushSize()
         }
 
         ib_gallery.setOnClickListener {
@@ -102,29 +105,34 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showBrushSizeChooserDialog() {
+    private fun showDialogBrushSize() {
         val brushDialog = Dialog(this)
-        brushDialog.setContentView(R.layout.dialog_brush_size)
-        brushDialog.setTitle("Brush size: ")
+        brushDialog.setContentView(R.layout.brush_size)
+        val window = brushDialog.window
+        window?.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 
-        val smallBtn = brushDialog.ib_small_brush
-        val mediumBtn = brushDialog.ib_medium_brush
-        val largeBtn = brushDialog.ib_large_brush
+        val seek = brushDialog.sk_brush_size
 
-        smallBtn.setOnClickListener {
-            drawing_view.setSizeForBrush(10.toFloat())
-            brushDialog.dismiss()
-        }
+        seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    mSizeBrush = progress
+                    seek.progress = mSizeBrush
+                }
 
-        mediumBtn.setOnClickListener {
-            drawing_view.setSizeForBrush(20.toFloat())
-            brushDialog.dismiss()
-        }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    seek.progress = mSizeBrush
+                }
 
-        largeBtn.setOnClickListener {
-            drawing_view.setSizeForBrush(30.toFloat())
-            brushDialog.dismiss()
-        }
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    drawing_view.setSizeForBrush(mSizeBrush.toFloat())
+                    seek.progress = mSizeBrush
+                    brushDialog.dismiss()
+                }
+            })
 
         brushDialog.show()
     }
