@@ -20,7 +20,6 @@ import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.brush_size.*
-import kotlinx.android.synthetic.main.dialog_brush_size.*
 
 class MainActivity : AppCompatActivity() {
     private var currentColor: Int = Color.BLACK
