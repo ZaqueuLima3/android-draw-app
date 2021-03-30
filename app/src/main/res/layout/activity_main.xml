@@ -14,7 +14,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/bg_drawing_view_layout"
         android:padding="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/ib_colors"
+        app:layout_constraintBottom_toTopOf="@+id/ll_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,45 +35,43 @@
 
     </FrameLayout>
 
-
-    <ImageButton
-        android:id="@+id/ib_colors"
+    <LinearLayout
+        android:id="@+id/ll_menu"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:contentDescription="brush image"
-        android:src="@drawable/ic_color"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_gallery"
-        app:layout_constraintEnd_toStartOf="@+id/ib_brush"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ib_gallery"
-        app:layout_constraintTop_toTopOf="@+id/ib_gallery"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/ib_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:contentDescription="brush image"
-        android:src="@drawable/ic_image"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ib_colors"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/ib_remake"
-        app:layout_constraintTop_toBottomOf="@+id/fl_drawing_view_container" />
-
-    <ImageButton
-        android:id="@+id/ib_brush"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:contentDescription="brush image"
-        android:src="@drawable/ic_brush"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_colors"
         app:layout_constraintEnd_toStartOf="@+id/ib_undo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ib_colors"
-        app:layout_constraintTop_toTopOf="@+id/ib_colors"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/ib_remake">
+
+        <ImageButton
+            android:id="@+id/ib_colors"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:contentDescription="brush image"
+            android:src="@drawable/ic_color" />
+
+        <ImageButton
+            android:id="@+id/ib_brush"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:contentDescription="brush image"
+            android:src="@drawable/ic_brush" />
+
+        <ImageButton
+            android:id="@+id/ib_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:contentDescription="brush image"
+            android:src="@drawable/ic_image" />
+
+        <ImageButton
+            android:id="@+id/ib_save"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:contentDescription="remake image"
+            android:src="@drawable/ic_save" />
+    </LinearLayout>
+
 
     <ImageButton
         android:id="@+id/ib_undo"
@@ -84,9 +82,10 @@
         android:contentDescription="undo image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_undo"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_brush"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ib_brush" />
+        app:layout_constraintTop_toBottomOf="@+id/fl_drawing_view_container" />
+
 
     <ImageButton
         android:id="@+id/ib_remake"
@@ -96,9 +95,9 @@
         android:contentDescription="remake image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_remake"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_gallery"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_menu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ib_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/fl_drawing_view_container" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
